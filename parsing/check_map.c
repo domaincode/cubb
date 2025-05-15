@@ -12,6 +12,21 @@
 
 #include "parsing.h"
 
+bool is_spaces(char* str)
+{
+	int i;
+
+	i = 0;
+	while(str && str[i] && str[i] != '\n')
+	{
+		if(str[i] == ' ' || str[i] == '\t')
+			i++;
+		else
+			return false;
+	}
+	return true;
+}
+
 int	check_lines(int fd, t_maplist **map, char* previeus)
 {
 	(void)fd;
@@ -38,8 +53,9 @@ int	check_lines(int fd, t_maplist **map, char* previeus)
 
 int	checkline(char **line, int fd, t_maplist **map, int *start)
 {
-	if ((*line)[0] == '\n' && *start)
+	if (((*line)[0] == '\n' || is_spaces(*line) ) && *start)
 	{
+		printf("%d\n", is_spaces(*line));
 		 if(check_lines(fd, map, *line) == 1)
 		 	return 1;
 	}
