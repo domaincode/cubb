@@ -29,11 +29,13 @@ bool is_spaces(char* str)
 
 int	check_lines(int fd, t_maplist **map, char* previeus)
 {
-	(void)fd;
+	//(void)fd;
 	char	*line;
 
 
 	line = get_next_line(fd);
+	if(line == NULL && previeus[0] != '\n')
+		return 1;
 	while (line)
 	{
 		//printf(".%s.\n", line);
@@ -55,7 +57,8 @@ int	checkline(char **line, int fd, t_maplist **map, int *start)
 {
 	if (((*line)[0] == '\n' || is_spaces(*line) ) && *start)
 	{
-		printf("%d\n", is_spaces(*line));
+		//printf("line:%s.\n", *line);
+		//printf("%d\n", is_spaces(*line));
 		 if(check_lines(fd, map, *line) == 1)
 		 	return 1;
 	}
